@@ -1,4 +1,4 @@
-export type ViewId = 'solo' | 'card' | 'duo' | 'grove'
+export type ViewId = 'solo' | 'card' | 'duo'
 
 const bus = new EventTarget()
 
@@ -49,11 +49,10 @@ export function parseRoute(search: string): ParsedRoute {
   let view: ViewId = 'solo'
   if (friend || viewParam === 'duo') view = 'duo'
   else if (viewParam === 'card') view = 'card'
-  else if (viewParam === 'grove') view = 'grove'
   return {
     view,
     sender: query.get('sender') || '我',
-    friend: friend || '阿杰',
+    friend,
     rel: query.get('rel') || '搞钱战友局',
     tag: query.get('tag') || '嘴硬心软',
     hasFriend: query.has('friend'),

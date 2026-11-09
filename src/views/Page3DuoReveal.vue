@@ -55,7 +55,7 @@ function knockHead(): void {
   boop.value += 1
   playMuyuSound()
   store.addMerit(1)
-  pushToast('已通过微信服务通知唤醒发起人 A')
+  pushToast('已帮发起人助力')
 }
 
 async function savePoster(): Promise<void> {
@@ -80,7 +80,7 @@ async function openCoupon(): Promise<void> {
 
 async function passTorch(): Promise<void> {
   if (store.torchPassed) {
-    pushToast('这束火炬已经传出')
+    pushToast('已经转给下一位了')
     return
   }
   const opened = await openPair({
@@ -108,10 +108,9 @@ function confirmJump(): void {
 
 <template>
   <section class="page">
-    <div class="torch">
-      <span>🔥</span>
-      <p>此束元旦香火已跨越 {{ chain }} 位善男信女接力传递（福气膨胀 {{ chain }}x）</p>
-    </div>
+    <p class="eyebrow">第 3 步 · 好友打开</p>
+    <h2 class="display">{{ input.receiverName }}，帮我助力</h2>
+    <p class="lede">点开这张卡，就是在帮「{{ input.senderName }}」显字。已经有 {{ chain }} 人接力。</p>
 
     <ClayStage
       :left-name="input.senderName"
@@ -122,7 +121,7 @@ function confirmJump(): void {
       :right-tag="input.impressionTags[0]"
       :boop="boop"
     >
-      <button class="boop-btn" type="button" @click="knockHead">🔨 敲他木鱼头 (+1)</button>
+      <button class="boop-btn" type="button" @click="knockHead">帮他敲一下</button>
     </ClayStage>
 
     <article class="reading">
@@ -134,17 +133,12 @@ function confirmJump(): void {
       <button class="btn btn-ghost btn-block" type="button" @click="savePoster">保存双人实况海报</button>
     </article>
 
-    <article class="reward">
-      <h3 class="section-title">拆卡好友 100% 必中反哺福利（CPS 茶饮/外卖免单券包）</h3>
-      <p class="section-copy">按你打开这张卡的时辰，给茶饮或外卖券。没有充值，也没有现金返还。</p>
-      <button class="btn btn-gold btn-block" type="button" @click="openCoupon">领取烟火券包</button>
-    </article>
+    <button class="btn btn-ghost btn-block quiet" type="button" @click="openCoupon">顺手领一张烟火券</button>
   </section>
 
   <div class="dock">
-    <button class="btn btn-gold btn-block" type="button" @click="passTorch">
-      🔥 把火炬传给下一位好友 C（演示 A 获得二级功德反哺）
-    </button>
+    <p class="dock-line">再转给下一位，助力继续传下去</p>
+    <button class="btn btn-gold btn-block" type="button" @click="passTorch">转给下一位助力</button>
   </div>
 
   <GlassModal :open="rewardOpen" eyebrow="微信服务通知 · 演示" title="发起人收到一束回香" @close="rewardOpen = false">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { FRIEND_NAMES, IMPRESSIONS, RELATIONS, shareTitle } from '@/data/blessings'
+import { generateFriendName, IMPRESSIONS, RELATIONS, shareTitle } from '@/data/blessings'
 import { useRitualStore } from '@/stores/ritual'
 import { openDuo } from '@/utils/nav'
 import { pushToast } from '@/utils/toast'
@@ -9,13 +9,13 @@ const store = useRitualStore()
 
 const ready = computed(() => Boolean(store.friendName && store.relation && store.tags.length))
 const title = computed(() =>
-  ready.value
+  store.friendName && store.tags.length
     ? shareTitle('我', store.friendName, store.tags[0])
-    : '先点一位好友、一种关系、至少一枚印象',
+    : '点用户名生成助力对象，再选关系和印象',
 )
 
-function pickFriend(name: string): void {
-  store.setFriend(name)
+function rollFriend(): void {
+  store.setFriend(generateFriendName(store.friendName))
 }
 
 function pickRelation(label: string): void {
@@ -29,11 +29,11 @@ function pickTag(label: string): void {
 
 function send(): void {
   if (!ready.value) {
-    pushToast('先点一位好友、一种关系、至少一枚印象')
+    pushToast('先点出用户名，再选一种关系和一枚印象')
     return
   }
   store.senderName = '我'
-  pushToast('已模拟订阅微信服务通知')
+  pushToast('已准备好发给好友助力')
   openDuo({
     sender: '我',
     friend: store.friendName,
@@ -45,29 +45,30 @@ function send(): void {
 
 <template>
   <section class="page">
-    <p class="eyebrow">AI 嘴替 · 两秒</p>
-    <h2 class="display">不用打字</h2>
-    <p class="lede">点称呼、点关系、点印象。悬念句留给对方，判词先藏起来。</p>
+    <p class="eyebrow">第 2 步</p>
+    <h2 class="display">点名字，请他助力</h2>
+    <p class="lede">没有预设名单。点下面的用户名就会生成一个，再点一次就换一个。转发后，对方点开就是在帮你显字。</p>
+
+    <button class="name-plate" type="button" @click="rollFriend">
+      <span>{{ store.friendName || '点此生成用户名' }}</span>
+      <small>{{ store.friendName ? '再点一次，换一个用户名' : '生成后会写进转发卡片' }}</small>
+    </button>
 
     <div class="section">
-      <h3 class="section-title">好友怎么叫</h3>
-      <div class="chip-row" style="margin-top: 10px">
-        <button
-          v-for="name in FRIEND_NAMES"
-          :key="name"
-          class="chip"
-          :class="{ active: store.friendName === name }"
-          type="button"
-          @click="pickFriend(name)"
-        >
-          {{ name }}
-        </button>
+      <h3 class="section-title">好友会看到的助力卡</h3>
+      <div class="wx">
+        <div class="wx-card">
+          <h3 :class="{ placeholder: !store.friendName || !store.tags.length }">{{ title }}</h3>
+          <footer>
+            <span>点开即助力 · {{ store.relation || '关系未选' }}</span>
+          </footer>
+        </div>
       </div>
     </div>
 
     <div class="section">
-      <h3 class="section-title">六大合盘局</h3>
-      <div class="rel-grid" style="margin-top: 10px">
+      <h3 class="section-title">你们是什么关系</h3>
+      <div class="rel-grid">
         <button
           v-for="item in RELATIONS"
           :key="item.id"
@@ -76,15 +77,13 @@ function send(): void {
           type="button"
           @click="pickRelation(item.label)"
         >
-          <strong>{{ item.label }}</strong>
-          <span>{{ item.hint }}</span>
+          {{ item.label }}
         </button>
       </div>
     </div>
 
     <div class="section">
-      <h3 class="section-title">好友印象</h3>
-      <p class="section-copy">可多选，最多三枚。标题只用第一枚主印象。</p>
+      <h3 class="section-title">贴一枚印象</h3>
       <div class="tag-cloud">
         <button
           v-for="item in IMPRESSIONS"
@@ -100,25 +99,10 @@ function send(): void {
       </div>
     </div>
 
-    <div class="section">
-      <h3 class="section-title">微信里会看到的卡片</h3>
-      <div class="wx">
-        <div class="wx-meta">
-          <span>赛博灵山</span>
-          <span>刚刚</span>
-        </div>
-        <div class="wx-card">
-          <h3 :class="{ placeholder: !ready }">{{ title }}</h3>
-          <footer>
-            <span>2027 好运合拍 · {{ store.relation || '关系未选' }}</span>
-            <i class="wx-thumb" />
-          </footer>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
   <div class="dock">
-    <button class="btn btn-gold btn-block" type="button" @click="send">把悬念卡送出去</button>
+    <p class="dock-line">把这张卡转出去，请他帮你显字</p>
+    <button class="btn btn-gold btn-block" type="button" @click="send">转发给他助力</button>
   </div>
 </template>

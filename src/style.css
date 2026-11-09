@@ -43,9 +43,7 @@ button {
   min-height: 100dvh;
   display: flex;
   justify-content: center;
-  background:
-    radial-gradient(380px 240px at 50% 0%, rgba(253, 230, 138, 0.16), transparent 70%),
-    linear-gradient(180deg, #0f0d15 0%, #171018 46%, #2a1215 100%);
+  background: #0c0b10;
 }
 
 .phone {
@@ -53,10 +51,7 @@ button {
   width: min(430px, 100%);
   min-height: 100dvh;
   overflow: clip;
-  background:
-    linear-gradient(180deg, rgba(15, 13, 21, 0.2), rgba(42, 18, 21, 0.28)),
-    #120e16;
-  box-shadow: 0 0 0 1px rgba(253, 230, 138, 0.12);
+  background: #121116;
 }
 
 .snow {
@@ -81,10 +76,10 @@ button {
   z-index: 5;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: calc(10px + env(safe-area-inset-top)) 14px 12px;
-  background: linear-gradient(180deg, rgba(15, 13, 21, 0.92), rgba(15, 13, 21, 0.72) 70%, transparent);
-  backdrop-filter: blur(10px);
+  gap: 12px;
+  padding: calc(14px + env(safe-area-inset-top)) 20px 12px;
+  background: rgba(18, 17, 22, 0.92);
+  backdrop-filter: blur(12px);
 }
 
 .topbar-row {
@@ -101,26 +96,11 @@ button {
   min-width: 0;
 }
 
-.seal {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(253, 230, 138, 0.7);
-  color: var(--cream);
-  font-family: "Noto Serif SC", serif;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  transform: rotate(-8deg);
-  background: rgba(124, 29, 29, 0.45);
-}
-
 .brand h1 {
   margin: 0;
   font-family: "Noto Serif SC", serif;
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.08em;
 }
 
 .brand p {
@@ -131,21 +111,23 @@ button {
 }
 
 .icon-btn {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  border: 1px solid rgba(253, 230, 138, 0.28);
-  background: rgba(15, 13, 21, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
   color: var(--cream);
 }
 
 .switcher {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .switcher::-webkit-scrollbar {
@@ -153,13 +135,12 @@ button {
 }
 
 .switcher button {
-  flex: 0 0 auto;
-  border: 1px solid rgba(253, 230, 138, 0.18);
-  background: rgba(255, 255, 255, 0.03);
+  border: 0;
+  background: transparent;
   color: var(--muted);
   border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
+  padding: 8px 0;
+  font-size: 13px;
 }
 
 .switcher button.active {
@@ -170,7 +151,7 @@ button {
 }
 
 .page {
-  padding: 4px 16px 8px;
+  padding: 8px 20px 12px;
   animation: rise 0.45s ease;
 }
 
@@ -195,8 +176,8 @@ button {
 .display {
   margin: 0;
   font-family: "Noto Serif SC", serif;
-  font-size: 30px;
-  line-height: 1.2;
+  font-size: 28px;
+  line-height: 1.25;
   font-weight: 700;
 }
 
@@ -209,15 +190,12 @@ button {
 
 .hall {
   position: relative;
-  margin-top: 12px;
-  height: 136px;
-  border-radius: 28px;
+  margin-top: 18px;
+  min-height: 92px;
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(253, 230, 138, 0.2);
-  background:
-    radial-gradient(120px 80px at 78% 22%, rgba(253, 230, 138, 0.4), transparent 70%),
-    linear-gradient(180deg, rgba(42, 18, 21, 0.2), rgba(15, 13, 21, 0.2)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cpath d='M70 8 L132 70 L70 132 L8 70 Z' fill='none' stroke='%23fde68a' stroke-opacity='0.15'/%3E%3C/svg%3E");
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .lantern {
@@ -243,23 +221,28 @@ button {
 .lantern.left { left: 28px; }
 .lantern.right { right: 28px; }
 
+.hall {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+}
+
 .hall-copy,
 .merit-pill {
-  position: absolute;
-  z-index: 1;
+  position: static;
 }
 
 .hall-copy {
-  left: 16px;
-  top: 16px;
-  max-width: 62%;
+  min-width: 0;
 }
 
 .dharma-name {
   margin: 0;
   font-family: "Noto Serif SC", serif;
-  font-size: 22px;
-  line-height: 1.25;
+  font-size: 18px;
+  line-height: 1.3;
 }
 
 .dharma-blurb {
@@ -280,13 +263,11 @@ button {
 }
 
 .merit-pill {
-  right: 12px;
-  bottom: 12px;
-  padding: 8px 10px;
-  border-radius: 16px;
-  background: rgba(15, 13, 21, 0.62);
-  border: 1px solid rgba(253, 230, 138, 0.28);
+  padding: 0;
+  background: transparent;
+  border: 0;
   text-align: right;
+  flex: 0 0 auto;
 }
 
 .merit-pill span {
@@ -450,8 +431,7 @@ button {
 
 .btn-gold {
   color: #1c1208;
-  background: linear-gradient(180deg, #fde68a, #f59e0b);
-  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2);
+  background: #f5d78a;
 }
 
 .btn-ghost {
@@ -485,8 +465,9 @@ button {
   transform: translateX(-50%);
   width: min(430px, 100%);
   z-index: 6;
-  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, rgba(15, 13, 21, 0), rgba(15, 13, 21, 0.96) 24%);
+  padding: 12px 20px calc(14px + env(safe-area-inset-bottom));
+  background: #121116;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .dock-card {
@@ -574,12 +555,13 @@ button {
 }
 
 .rel {
-  text-align: left;
-  border-radius: 18px;
-  padding: 12px;
-  border: 1px solid rgba(253, 230, 138, 0.16);
-  background: rgba(255, 255, 255, 0.03);
+  text-align: center;
+  border-radius: 12px;
+  padding: 12px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
   color: var(--paper);
+  font-size: 13px;
 }
 
 .rel strong {
@@ -595,8 +577,37 @@ button {
 }
 
 .rel.active {
-  border-color: rgba(245, 158, 11, 0.8);
-  background: rgba(124, 29, 29, 0.45);
+  border-color: transparent;
+  background: rgba(245, 215, 138, 0.16);
+  color: var(--cream);
+}
+
+.name-plate {
+  width: 100%;
+  margin-top: 22px;
+  padding: 28px 16px 22px;
+  border-radius: 20px;
+  border: 1px dashed rgba(245, 215, 138, 0.55);
+  background: transparent;
+  color: var(--cream);
+}
+
+.name-plate span {
+  display: block;
+  font-family: "Noto Serif SC", serif;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.name-plate small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.quiet {
+  margin-top: 12px;
 }
 
 .wx {
@@ -665,8 +676,8 @@ button {
 
 .clay-stage {
   position: relative;
-  margin-top: 12px;
-  min-height: 320px;
+  margin-top: 18px;
+  min-height: 280px;
   border-radius: 28px;
   overflow: hidden;
   border: 1px solid rgba(253, 230, 138, 0.22);

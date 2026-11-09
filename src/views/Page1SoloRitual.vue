@@ -70,13 +70,11 @@ function goCard(): void {
 
 <template>
   <section class="page">
-    <p class="eyebrow">丁未 · 二〇二七元旦</p>
-    <h2 class="display">敲三声，换一张签</h2>
-    <p class="lede">雪夜佛堂只做这一件事：把班味敲松，再决定要不要把福气借给一位老友。</p>
+    <p class="eyebrow">第 1 步</p>
+    <h2 class="display">敲三声，再请人助力</h2>
+    <p class="lede">这张签自己拆不开。敲满三声后转给好友，由他点开帮你把字显出来。</p>
 
     <div class="hall">
-      <i class="lantern left" />
-      <i class="lantern right" />
       <div class="hall-copy">
         <h3 class="dharma-name">{{ store.dharma.name }}</h3>
         <p class="dharma-blurb">{{ store.dharma.blurb }}</p>
@@ -91,7 +89,7 @@ function goCard(): void {
     <div class="muyu-block">
       <span v-for="item in floats" :key="item.id" class="floater">{{ item.text }}</span>
       <Muyu :hit="hitting" @knock="onKnock" />
-      <p class="muyu-note">已敲 {{ store.knocks }} 下 · 每满 3 下换一张本命上上签</p>
+      <p class="muyu-note">已敲 {{ store.knocks }} 下 · 满 3 下就可以请好友助力显字</p>
       <div class="dots" aria-hidden="true">
         <i :class="{ on: dotCount > 0 || (store.knocks > 0 && dotCount === 0) }" />
         <i :class="{ on: dotCount > 1 || (store.knocks > 0 && dotCount === 0) }" />
@@ -122,8 +120,8 @@ function goCard(): void {
   </section>
 
   <div class="dock">
-    <p class="dock-line">2027 伴生偏财签 · 本人不可独拆</p>
-    <button class="btn btn-gold btn-block" type="button" @click="goCard">借一位老友的福气合盘显字</button>
+    <p class="dock-line">本人不可独拆 · 转发出去才显字</p>
+    <button class="btn btn-gold btn-block" type="button" @click="goCard">转发给好友助力</button>
   </div>
 
   <GlassModal

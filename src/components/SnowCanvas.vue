@@ -34,7 +34,7 @@ onMounted(() => {
     canvas.style.width = `${width}px`
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    const count = reduced ? 18 : 90
+    const count = reduced ? 8 : 28
     particles.length = 0
     for (let i = 0; i < count; i += 1) {
       particles.push({

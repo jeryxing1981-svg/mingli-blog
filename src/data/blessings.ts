@@ -76,7 +76,20 @@ export const IMPRESSIONS: Impression[] = [
   { label: '财神跟班' },
 ]
 
-export const FRIEND_NAMES = ['阿杰', '小北', '老周', '阿May', '鱼丸', '阿凯', '七七', '大壮']
+const NAME_HEADS = ['阿', '小']
+const NAME_GLYPHS = Array.from('予北舟凯安禾川宁言木秋晚星野清和朗初')
+
+/** 点一下现场拼出一个用户名，不提供写死的候选名单。 */
+export function generateFriendName(current = ''): string {
+  let name = ''
+  for (let attempt = 0; attempt < 8 && (name === '' || name === current); attempt += 1) {
+    const glyph = NAME_GLYPHS[Math.floor(Math.random() * NAME_GLYPHS.length)]
+    const another = NAME_GLYPHS[Math.floor(Math.random() * NAME_GLYPHS.length)]
+    const head = NAME_HEADS[Math.floor(Math.random() * NAME_HEADS.length)]
+    name = Math.random() < 0.6 ? `${head}${glyph}` : `${glyph}${another}`
+  }
+  return name
+}
 
 export const SOLO_SLIPS: SoloSlip[] = [
   {
@@ -318,7 +331,7 @@ export function randomDharma(): Dharma {
 }
 
 export function shareTitle(sender: string, receiver: string, tag: string): string {
-  return `【${sender}】给${receiver}贴了「${tag}」，AI合出的2027第一句判词居然是……`
+  return `【${sender}】请${receiver}助力。贴了「${tag}」之后，2027第一句判词居然是……`
 }
 
 export function localPairReading(input: PairInput): PairReading {

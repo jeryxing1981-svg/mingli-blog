@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { DHARMA, IMPRESSIONS, RELATIONS, localPairReading, shareTitle } from '../../src/data/blessings.ts'
+import { DHARMA, IMPRESSIONS, RELATIONS, generateFriendName, localPairReading, shareTitle } from '../../src/data/blessings.ts'
 import { pickCpsSlot, shanghaiParts } from '../../src/data/cps.ts'
 import { createLedger } from './ledger.ts'
 
@@ -20,12 +20,24 @@ test('本地合盘始终返回悬念标题和四字段', () => {
         impressionTags: [tag.label],
       })
       assert.equal(reading.share_title, shareTitle('我', '阿杰', tag.label))
+      assert.equal(reading.share_title.includes('助力'), true)
       assert.ok(reading.hexagram_name.length >= 2)
       assert.ok(reading.verdict.includes('阿杰'))
       assert.ok(reading.todo_tip.startsWith('宜：'))
       assert.equal(reading.verdict.includes('转发领钱'), false)
     }
   }
+})
+
+test('用户名是点出来的，不是固定名单', () => {
+  const names = new Set<string>()
+  let current = ''
+  for (let i = 0; i < 24; i += 1) {
+    current = generateFriendName(current)
+    assert.ok(current.length >= 2 && current.length <= 3)
+    names.add(current)
+  }
+  assert.ok(names.size > 1)
 })
 
 test('A 到 B 再到 C 才触发二级功德', () => {
